@@ -1,0 +1,32 @@
+# Use the official Alpine Linux image
+FROM alpine:latest
+
+# Install Node.js and npm
+RUN apk add --no-cache git go
+
+# Create and set the working directory
+WORKDIR /app
+
+RUN git clone https://github.com/yggdrasil-network/yggdrasil-go.git
+
+WORKDIR /app/yggdrasil-go
+
+#RUN git checkout v0.5.6
+RUN git checkout origin/master
+
+RUN ./build
+
+# Copy the package.json and package-lock.json files
+#COPY package*.json ./
+
+# Install the project dependencies
+#RUN npm install
+
+# Copy the rest of the application files
+#COPY . .
+
+# Expose the port the app runs on
+#EXPOSE 3000
+
+# Define the command to run the application
+#CMD ["node", "app.js"]
